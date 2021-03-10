@@ -1,0 +1,169 @@
+import os
+import sys
+
+sys.path.insert(1,'/Users/apalmer/Desktop/Development Studio/WebApps/ReactApplications/React-Project/WebApplications/credit-crunch/back_end/Classes')
+
+from database import Database
+
+# Required third party packages
+from flask import Flask, flash, jsonify, redirect, request, session, url_for, abort
+import uuid
+# from flask_session import Session
+import json
+from random import randint
+from datetime import datetime
+
+# Local dependencies
+# from sys.path.append('../Classes.database.py') import Database
+
+
+
+app = Flask(__name__)
+
+# This function handles user registration and returns a response
+@app.route('/api/signup', methods=['POST'])
+def user_Signup():
+    # Get User's Data
+    response = None
+    if request.method == 'POST':
+        payload = request.get_json(force = True)
+        firstName = payload.get('first')
+        lastName = payload.get('last')
+        email = payload.get('email')
+        password = payload.get('password')
+        tokenReq = payload.get('returnSecureToken')
+        # Create User's GUID
+        user_GUID = str(uuid.uuid4())
+
+        # Initialize Database
+        db = Database()
+
+        #Validate (Check if user's email is already in use)
+        validate_UserEmai = user_EmailValidate(email)
+
+        if validate_UserEmai:
+            response = 'Email already exists'
+            return response
+
+        else:
+            # Add User's Data To The Database
+            query = ("INSERT INTO Users(user_firstName, user_lastName, user_email, user_password, user_GUID, user_status) VALUES (%s, %s, %s, %s, %s, %s)")
+
+            # Error with entering Guid in database
+            data = (firstName, lastName, email, password, user_GUID, 'A')
+        
+            # Database Response Message 
+            db_response = db.inputToDatabase(query, data)
+            
+            print(db_response)
+
+            # Grab the user_ID that the user receives
+            user_Id = get_UserId(email)
+
+            # Create User's Token To Return
+            if tokenReq == True:
+                #UUID 5 takes 2 arguments namespace dns and the string u want to hash
+                user_token = str(uuid.uuid5(uuid.NAMESPACE_DNS, email))
+
+            # Client Response Information
+            responseData = {
+                'token': user_token,
+                'message': db_response,
+                'result': 'User added Successfully',
+                'localId': user_Id,
+                'expiresIn': 900
+            }
+
+            response = json.dumps(responseData, default=str)
+             
+    return response
+
+# This function handles user logins and returns a response
+@app.route('/api/login', methods=['POST'])
+def user_Login():
+    # Get User's Data
+    response = None
+    if request.method == 'POST':
+        payload = request.get_json(force = True)
+        email = payload.get('email')
+        password = payload.get('password')
+        tokenReq = payload.get('returnSecureToken')
+
+        check_UserExsist = user_EmailValidate(email)
+        if not check_UserExsist:
+            response = "Some of your information isn't correct. Please try again."
+
+        elif check_UserExsist:
+            user_Info = get_UserInfo(email)
+            if user_Info[4] != password:
+                response = "Some of your information isn't correct. Please try again."
+            else:
+                # Create User's Token To Return
+                if tokenReq == True:
+                    #UUID 5 takes 2 arguments namespace dns and the string u want to hash
+                    user_token = str(uuid.uuid5(uuid.NAMESPACE_DNS, email))
+
+            # Client Response Information
+            responseData = {
+                'token': user_token,
+                'result': 'User Logged in Successfully',
+                'localId': user_Info[0],
+                'expiresIn': 900
+            }
+            response = json.dumps(responseData, default=str)
+
+    return response
+
+# This function checks to see if User's email is already in use
+def user_EmailValidate(email):
+    db = Database()
+
+    # Check If User Already Exsist
+    validate_userQuery = ('SELECT * FROM Users WHERE user_email = "{}"').format(email)
+   
+    validate_user = db.selectOneFromDatabase(validate_userQuery)
+    
+    #Test to see if user exsist 
+    userExsist = None
+
+    # Return true if user already has the email in database
+    if validate_user[0] is not None:
+        userExsist = True
+
+    # Return false if email is not being used in database
+    elif validate_user[0] is None:
+        userExsist = False
+
+    return userExsist
+        
+# This function checks to see if User's email is already in use and returns the userId
+def get_UserId(email):
+    db = Database()
+
+    # Check If User Already Exsist
+    validate_userQuery = ('SELECT * FROM Users WHERE user_email = "{}"').format(email)
+   
+    validate_user = db.selectOneFromDatabase(validate_userQuery)
+    
+    #Test to see if user exsist 
+    userId = validate_user[0][0]
+
+    return userId
+
+# This function returns the users information
+def get_UserInfo(email):
+    db = Database()
+
+    # Check If User Already Exsist
+    validate_UserQuery = ('SELECT * FROM Users WHERE user_email = "{}"').format(email)
+
+    validate_User = db.selectOneFromDatabase(validate_UserQuery)
+
+     #Test to see if user exsist 
+    userId = validate_User[0]
+
+    return userId
+
+
+if __name__ == '__main__':
+    app.run(debug=True)

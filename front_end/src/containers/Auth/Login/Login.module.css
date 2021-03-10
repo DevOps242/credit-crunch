@@ -1,0 +1,47 @@
+.Login {
+    width: 45%;
+    height: auto;
+    margin: auto;
+    /* margin: top 60%; */
+    background-color: white;
+    position: absolute;
+    top: 18%;
+    left: 25%;
+    border: 2px solid #eaeced;
+    box-sizing: border-box;
+    border-radius: 30px;
+    overflow: hidden;
+    text-align: center;
+    box-shadow: 0 2px 3px #ccc;
+    border: 1px solid #eee;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+
+.Input {
+    display: block;
+    margin: 8px;
+    
+}
+
+.Button{
+    font-size:30px;
+}
+
+
+.LoginFormButton {
+    text-align: center;
+    border: 2px solid pink;
+}
+
+.LoginFormElement {
+    
+    width: 80%;
+    
+}
+
+.Input{
+    display:block;
+    margin: 8px;
+}
