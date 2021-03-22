@@ -119,7 +119,7 @@ const Signup = props => {
 
     if (props.error) {
         errorMessage = (
-            <p>{props.error}</p>
+            <p className={classes.ErrorMessage}>{props.error}</p>
         )
     }
 
@@ -132,14 +132,14 @@ const Signup = props => {
         <div className={classes.Signup}>
             {authRedirect}
             <h1>Credit Crunch</h1>
-            <h3>Sign Up</h3>
+            <h3 className={classes.Text}>Sign Up</h3>
             {errorMessage}
 
             <form onSubmit={submitHandler} className={classes}>
                 {signupFormContent}
                 <Button btnType="Success">Sign Up</Button>
                 <hr/>
-                <p onClick={() => props.history.push('/login') }>Already have an account?</p>
+                <p className={classes.ButtonText} onClick={() => props.history.push('/login') }>Already have an account?</p>
             </form>
             
             <div className={classes}></div>

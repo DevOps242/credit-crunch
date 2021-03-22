@@ -1,0 +1,60 @@
+.TableWrapper{
+    width:100%;
+    height:100%;
+    background-color: pink;
+    border:2px solid #ccc;
+    border-radius: 30px;
+    margin: auto;
+    padding: auto;
+}
+
+.Table {
+    width: 80%;
+    height: auto;
+    background-color: #FDFDFD;
+    text-align: center;
+    margin: auto;
+    padding: auto;
+    border-collapse: collapse;
+    zoom: 1.2;
+}
+
+.TableHeading {
+    padding: 10px 0 20px 0;
+    margin: auto;
+    color:#153862;
+    opacity: 0.8;
+    border-bottom: 1px solid gray;
+    
+}
+
+.TableContentWrapper{
+    
+}
+
+.TableContent{
+    padding: 15px 0 5px 0;
+    margin: auto;
+    color: #E85F5C;
+    opacity: .8;
+    text-transform: uppercase;
+}
+.TableContentWrapper:hover {
+    background-color: pink;
+    
+    opacity: 1;
+    
+}
+
+
+.TableDanger{
+    text-align: center;
+    color: #E85F5C;
+
+}
+
+/* E85F5C
+
+F4E9CD
+
+7D84B2 */

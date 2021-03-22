@@ -164,6 +164,48 @@ def get_UserInfo(email):
 
     return userId
 
+###################------POST METHODS To Get users info on Page load-----###################
+@app.route('/income', methods=['POST'])
+def get_Income():
+    if request.method == 'POST':
+        payload = request.get_json(force = True)
+        user_Id = payload
+
+    db = Database()
+
+    responseData = [
+        {
+            'Description': 'Lorem Ipsum',
+            'Amount': '1500.00',
+            'Currency': 'USD',
+            'Category': 'Income'
+        },
+        {
+            'Description': 'Payment',
+            'Amount': '2.00',
+            'Currency': 'CAD',
+            'Category': 'Income'
+        },
+        {
+            'Description': 'Sales',
+            'Amount': '80.00',
+            'Currency': 'JAD',
+            'Category': 'Income'
+        },
+        {
+            'Description': 'Sales',
+            'Amount': '80.00',
+            'Currency': 'JAD',
+            'Category': 'Income'
+        }
+    ]
+
+    response = json.dumps(responseData, default=str)
+    # ['Salary', '1500.00', 'USD', 'Income'],['Payment', '2.00','CAD','Income']
+
+    return response
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)

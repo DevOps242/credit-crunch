@@ -1,0 +1,35 @@
+.NavigationItems {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    height: 100%;
+}
+
+.IconWrapper {
+    display: inline-flex;
+    padding: 10px 8%;
+    margin: 0;
+}
+
+.Icon {
+    vertical-align: middle;
+    color: white;
+    font-size: 34px;
+    padding: 0 12px;
+}
+
+
+@media (min-width: 500px) {
+    .NavigationItems {
+        flex-flow: row;
+    }
+}
+
+.SideDrawerNavigationItems {
+    padding: 0;
+    margin: 50px 0;
+    left: 0;
+}

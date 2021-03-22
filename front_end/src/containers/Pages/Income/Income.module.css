@@ -1,0 +1,15 @@
+.Income{
+    width: 100%;
+    height: 100%;
+
+}
+
+.HeadingWrapper{
+    display: flex;
+    margin: 0 20px 0 20px;
+}
+
+.HeadingButton{
+    
+    float: right;
+}

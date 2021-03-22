@@ -7,7 +7,8 @@ import {connect} from 'react-redux';
 import * as actions from './store/actions/index';
 import './App.css';
 import Dashboard from './containers/Dashboard/Dashboard';
-
+import Layout from './hoc/Layout/Layout';
+import Logout from './containers/Auth/Logout/Logout';
 
 const Signup = React.lazy(() => {
   return import('./containers/Auth/Signup/Signup');
@@ -15,6 +16,10 @@ const Signup = React.lazy(() => {
 
 const Login = React.lazy(() => {
   return import ('./containers/Auth/Login/Login');
+})
+
+const Income = React.lazy(() => {
+  return import ('./containers/Pages/Income/Income');
 })
 
 const App = props => {
@@ -36,16 +41,20 @@ const App = props => {
   if (props.isAuthenticated) {
     routes = (
       <Switch>
-        <Route path='/' render={props => <Dashboard {...props}/>}></Route>   
+        <Route path='/income' exact render={props => <Income {...props} />} />
+        <Route path='/logout' exact render={props => <Logout {...props} />} />
+        <Route path='/' render={props => <Dashboard {...props} />} /> 
       </Switch>
     )
   }
 
   return (
     <div className="App">
-      <Suspense fallback = {<p>Loading...</p>} >
-        {routes}
-      </Suspense>      
+      <Layout>
+        <Suspense fallback = {<p>Loading...</p>} >
+          {routes}
+        </Suspense>  
+      </Layout>    
     </div>
   );
 }

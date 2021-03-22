@@ -7,6 +7,7 @@ import * as actions from '../../../store/actions/index';
 
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import Logo from '../../../assets/images/creditcrunch-side.png';
 
 import classes from './Login.module.css';
 
@@ -43,6 +44,8 @@ const Login = props => {
         }   
     });
 
+    const [loginButtonDisable, setLoginButtonDisable] = useState(false);
+
 
     const inputChangedHandler= (event, controlName) => {
         const updatedControls = updateObject(loginForm, {
@@ -53,6 +56,11 @@ const Login = props => {
             })
         });
         setLoginForm(updatedControls);
+        // if ((!loginForm.email.value === '') && (!loginForm.password.value === '')) {
+        //     setLoginButtonDisable(false);
+        // }
+        // setLoginButtonDisable(true);
+        
     };
 
     const submitHandler = (event) => {
@@ -87,7 +95,7 @@ const Login = props => {
 
     if (props.error) {
         errorMessage = (
-            <p>{props.error}</p>
+            <p className={classes.ErrorMessage}>{props.error}</p>
         )
     }
 
@@ -96,19 +104,23 @@ const Login = props => {
         authRedirect = <Redirect to ={props.authRedirectPath}/>
     }
     
+    
 
     return (
         <div className={classes.Login}>
             {authRedirect}
             
-            <h1>Credit Crunch</h1>
-            <h3>Login</h3>
+            <img className={classes.Logo} src={Logo} alt="Logo" />
+            <h4 className={classes.Text}>Login</h4>
             {errorMessage}
             <form onSubmit={submitHandler} className={classes}>
                 {signupFormContent}
-                <Button btnType="Success">Log In</Button>
-                <hr/>
-                <p onClick={() => props.history.push('/signup') }>Create a new account!</p>
+                <Button btnType="Success" disabled={loginButtonDisable}>Log In</Button>
+                <p className={classes.ButtonText} onClick={() => props.history.push('/reset-password')}>Having issues or Forgot Password?</p>
+
+                <span className={classes.Separator}>or</span>
+
+                <p className={classes.ButtonText} onClick={() => props.history.push('/signup') }>Create a new account!</p>
             </form>
             
             <div className={classes}></div>

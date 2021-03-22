@@ -41,7 +41,61 @@
     
 }
 
-.Input{
-    display:block;
-    margin: 8px;
+.Logo {
+    width: 70%;
+    height: 18%;
+    padding: 0px 0;
+}
+
+.Text {
+    margin: 0 0 8px 0;
+    padding: 0;
+}
+
+.ButtonText{
+
+}
+
+.ButtonText:hover{
+    color:#7D84B2;
+    cursor: pointer; 
+}
+
+.Separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    text-transform: uppercase;
+    font-size:0.8rem;
+  }
+  
+  .Separator::before,
+  .Separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid #000;
+  }
+  
+  .Separator:not(:empty)::before {
+    margin-right: .25em;
+  }
+  
+  .Separator:not(:empty)::after {
+    margin-left: .25em;
+  }
+
+.ErrorMessage{
+    text-align: center;
+    vertical-align: middle;
+    color: white;
+    background-color: #E85F5C;
+    border-bottom: 5px solid #ccc;
+    border-radius: 15px;
+    margin-bottom: 5px;
+}
+
+
+.ErrorMessage:hover{
+    color: #E85F5C;
+    background-color: white;
 }
