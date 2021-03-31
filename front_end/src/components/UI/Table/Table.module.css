@@ -1,22 +1,18 @@
 .TableWrapper{
-    width:100%;
-    height:100%;
-    background-color: pink;
-    border:2px solid #ccc;
-    border-radius: 30px;
-    margin: auto;
-    padding: auto;
+    
+    
 }
 
 .Table {
     width: 80%;
     height: auto;
-    background-color: #FDFDFD;
+    background-color: white;
     text-align: center;
     margin: auto;
     padding: auto;
+    table-layout: fixed;
     border-collapse: collapse;
-    zoom: 1.2;
+    zoom: 1.1;
 }
 
 .TableHeading {
@@ -35,17 +31,15 @@
 .TableContent{
     padding: 15px 0 5px 0;
     margin: auto;
-    color: #E85F5C;
+    color: rgba(57.0, 179.0, 161.0, 1.0);
     opacity: .8;
     text-transform: uppercase;
 }
 .TableContentWrapper:hover {
-    background-color: pink;
-    
+    background-color: #7D84B2;
     opacity: 1;
-    
+    zoom: 1.1;
 }
-
 
 .TableDanger{
     text-align: center;

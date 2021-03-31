@@ -9,6 +9,7 @@ import * as actions from '../../../store/actions/index';
 import classes from './Signup.module.css';
 import Input from '../../../components/UI/Input/Input';
 import Button from '../../../components/UI/Button/Button';
+import Logo from '../../../assets/images/creditcrunch-side.png';
 
 const Signup = props => {
 
@@ -131,8 +132,8 @@ const Signup = props => {
     return (
         <div className={classes.Signup}>
             {authRedirect}
-            <h1>Credit Crunch</h1>
-            <h3 className={classes.Text}>Sign Up</h3>
+            <img className={classes.Logo} src={Logo} alt="Logo" />
+            <h4 className={classes.Text}>Sign Up</h4>
             {errorMessage}
 
             <form onSubmit={submitHandler} className={classes}>

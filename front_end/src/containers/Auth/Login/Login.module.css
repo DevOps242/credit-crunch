@@ -5,8 +5,10 @@
     /* margin: top 60%; */
     background-color: white;
     position: absolute;
-    top: 18%;
-    left: 25%;
+    align-items:center;
+    vertical-align: middle;
+    top: 150%;
+    left: 28%;
     border: 2px solid #eaeced;
     box-sizing: border-box;
     border-radius: 30px;

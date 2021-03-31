@@ -9,6 +9,8 @@ import './App.css';
 import Dashboard from './containers/Dashboard/Dashboard';
 import Layout from './hoc/Layout/Layout';
 import Logout from './containers/Auth/Logout/Logout';
+import Footer from './components/Footer/Footer';
+
 
 const Signup = React.lazy(() => {
   return import('./containers/Auth/Signup/Signup');
@@ -54,7 +56,7 @@ const App = props => {
         <Suspense fallback = {<p>Loading...</p>} >
           {routes}
         </Suspense>  
-      </Layout>    
+      </Layout>
     </div>
   );
 }

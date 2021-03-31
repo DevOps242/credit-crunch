@@ -178,25 +178,43 @@ def get_Income():
             'Description': 'Lorem Ipsum',
             'Amount': '1500.00',
             'Currency': 'USD',
-            'Category': 'Income'
+            'Category': 'Income',
+            'Date' : '01-Mar-21'
         },
         {
             'Description': 'Payment',
             'Amount': '2.00',
-            'Currency': 'CAD',
-            'Category': 'Income'
+            'Currency': 'USD',
+            'Category': 'Income',
+            'Date' : '03-Mar-21'
         },
         {
             'Description': 'Sales',
             'Amount': '80.00',
-            'Currency': 'JAD',
-            'Category': 'Income'
+            'Currency': 'USD',
+            'Category': 'Income',
+            'Date' : '15-Mar-21'
         },
         {
             'Description': 'Sales',
             'Amount': '80.00',
-            'Currency': 'JAD',
-            'Category': 'Income'
+            'Currency': 'USD',
+            'Category': 'Income',
+            'Date' : '29-Mar-21'
+        },
+        {
+            'Description': 'Sales',
+            'Amount': '2500.00',
+            'Currency': 'USD',
+            'Category': 'Income',
+            'Date' : '29-Mar-21'
+        },
+        {
+            'Description': 'Sales',
+            'Amount': '150.60',
+            'Currency': 'USD',
+            'Category': 'Income',
+            'Date' : '29-Mar-21'
         }
     ]
 

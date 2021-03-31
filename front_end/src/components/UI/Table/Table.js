@@ -17,24 +17,31 @@ const table = (props) => {
         <React.Fragment>
             <div className={classes.TableWrapper}>
                 <table className={classes.Table}>
-                    <tr>
-                        {props.heading.map(item => {
-                            return <th className={classes.TableHeading}>{item}</th>
+                    <thead>
+                        <tr>
+                            {props.heading.map(item => {
+                                return <th className={classes.TableHeading}>{item}</th>
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.content.map(item => {
+                            return <tr className={classes.TableContentWrapper}>{item.map(itemContent => {
+                                return <td className={classes.TableContent}>{itemContent}</td>
+                            })}</tr>
                         })}
-                    </tr>
-                    {props.content.map(item => {
-                        return <tr className={classes.TableContentWrapper}>{item.map(itemContent => {
-                            return <td className={classes.TableContent}>{itemContent}</td>
-                        })}</tr>
-                    })}
-
-                    <tr>
-                        <tf>
-                            {props.content.length > 5 ? <p>1</p> : null
-                            }
-                            
-                        </tf>
-                    </tr>
+                    </tbody>
+                    
+                    <tfoot>
+                        <tr>
+                            <td>
+                                {props.content.length > 5 ? <p>Show More</p> : null
+                                }
+                            </td>
+                        </tr>
+                        
+                        
+                    </tfoot>
                 
                 </table>
             </div>

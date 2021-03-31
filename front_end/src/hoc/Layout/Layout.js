@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import classes from './Layout.module.css';
 import Toolbar from '../../components/Navigation/Toolbar/Toolbar';
 import SideDrawer from '../../components/Navigation/SideDrawer/SideDrawer';
+import Footer from '../../components/Footer/Footer';
 
 const Layout = props => {
 
@@ -17,10 +18,16 @@ const Layout = props => {
         setShowSideDrawer(!showSideDrawer);
     } 
 
-    
+    let footer = null;
+
+    if (props.isAuthenticated) {
+        footer = (
+            <Footer/>
+        )
+    }
 
     return (
-        <React.Fragment>
+        <React.Fragment className={classes.Layout}>
             {/* Task Bar  */}
             <Toolbar 
                 isAuthenticated = {props.isAuthenticated}
@@ -34,8 +41,10 @@ const Layout = props => {
                 closed={sideDrawerClosedHandler}
             />
             <main className={classes.Content}>
-                {props.children}
-            </main>
+                {props.children}   
+            </main>  
+            {footer}
+           
         </React.Fragment>
     )
 }

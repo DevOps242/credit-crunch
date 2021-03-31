@@ -1,6 +1,15 @@
-.Content {
-    margin-top: 55px;
-    background-color: #F9F9FB;
-    height: 1vh;
+
+.Layout {
+    height: 100%;
     width: 100%;
+}
+
+.Content {
+    margin-top: -20px;
+    padding-top: 40px;
+    background-color: transparent;
+    min-height: 100%;
+    min-width: 100%;
+    position:relative;  
+    padding-bottom: 80px;
 }

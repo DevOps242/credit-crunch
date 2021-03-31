@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 import classes from './Toolbar.module.css';
 
@@ -13,13 +14,19 @@ const Toolbar = props => {
     if (props.isAuthenticated) {
         toolbar = (
             <header className={classes.Toolbar}>
-                <DrawerToggle clicked={props.drawerTogglerClicked} />
+                {/* <div className={classes.ToggleWrapper}> */}
+                    <DrawerToggle clicked={props.drawerTogglerClicked} />
+                {/* </div> */}
+                
                 <div className={classes.LogoWrapper}>
-                    <img className={classes.Logo} src={Logo} alt="Logo" />
+                    <Link to="/"> <img className={classes.Logo} src={Logo} alt="Logo" /></Link>
                 </div>
-                <nav className={classes.DesktopOnly}>
-                    <NavigationItems isAuthenticated={props.isAuthenticated}/>
-                </nav>
+
+                {/* <div className={classes.ProfileWrapper}> */}
+                    <nav className={classes.DesktopOnly}>
+                        <NavigationItems isAuthenticated={props.isAuthenticated}/>
+                    </nav>
+                {/* </div> */}
             </header>
         )
     }

@@ -1,7 +1,13 @@
-.Income{
+.IncomeWrapper{
     width: 100%;
     height: 100%;
+    background-color: transparent;
+}
 
+.IncomeHeadingText{
+    text-align: center;
+    margin-top: 6%;
+    background-color: transparent;
 }
 
 .HeadingWrapper{
@@ -9,7 +15,60 @@
     margin: 0 20px 0 20px;
 }
 
-.HeadingButton{
+.HeadingText{
+    margin-right: auto;
+    margin-left: 30px;
+}
+
+.HeadingAmount{
+    margin: auto;
+    text-transform: uppercase;
+    font-size: 1.6rem;
+    text-decoration: underline;
+    color: #153862;
+    background-color: #fff;
+    border: 3px solid #ccc;
+    border-radius: 15px;
+    border-color: #7D84B2;
+    box-shadow: 0px 3px 6px 3px;
+    padding: 10px 5px;
     
+}
+
+.HeadingButton{
+    margin-left: auto;
     float: right;
+}
+
+.ChartWrapper{
+    width:87%;
+    margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    box-shadow: 0px 2px 3px 0px #ccc;
+}
+
+.TableWrapper{
+    width:87%;
+    margin-top: 20px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 30px;
+    padding: 10px 15px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 16px;
+    box-shadow: 0px 2px 3px 0px #ccc;
+}
+
+.SpinnerWrapper{
+    width:100%;
+    height:100vh;
+    vertical-align:middle;
+    margin-top:350px;
 }
