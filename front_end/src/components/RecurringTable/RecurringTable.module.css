@@ -1,0 +1,112 @@
+.RecurringTableWrapper{
+    
+    
+}
+
+.RecurringHeader{
+    margin-top: 10px;
+    padding-bottom: 3px;
+    text-align: center;
+    text-transform:uppercase;
+    font-size: 1.3rem;
+    border-bottom: 1px solid gray;
+    border-radius: 15px;
+}
+
+.RecurringTableHeading{
+    text-align: center;
+    font-size: 14px;
+    margin-right: 5px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.RecurringTableContent{
+    text-align: center;
+    font-size: 14px;
+    margin-right: 5px;
+    padding-right: 10px;
+    white-space: nowrap;
+    
+}
+
+.RecurringTableEditButtonWrapper{
+    display: flex;
+}
+
+.RecurringTableEditButtonEdit{
+    color: #7D84B2;
+    padding: 10px;
+}
+
+.RecurringTableEditButtonEdit :hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.RecurringTableEditButtonDelete{
+    color: #E85F5C;
+    padding: 10px;
+}
+
+.RecurringTableEditButtonDelete :hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+/* 
+.MiniTable {
+    font-size: 12px;
+    width: 100%;
+    height: auto;
+    background-color: white;
+    text-align: center;
+    margin: auto;
+    padding: auto;
+    table-layout: fixed;
+    border-collapse: collapse;
+    
+    display: grid;
+    grid-template-columns: 2em 2em 10fr 2fr 2fr 2fr 2fr 5em 5em;
+}
+
+.MiniTableHeading {
+    width:100%;
+    padding: 10px 0 20px 0;
+    margin: auto;
+    color:#153862;
+    opacity: 0.8;
+    border-bottom: 1px solid gray;
+    
+}
+
+.MiniTableContentWrapper{
+    
+}
+
+
+
+.MiniTableContent{
+    padding: 15px 0 5px 0;
+    margin: auto;
+    color: rgba(57.0, 179.0, 161.0, 1.0);
+    opacity: .8;
+    text-transform: uppercase;
+}
+.MiniTableContentWrapper:hover {
+    background-color: #7D84B2;
+    opacity: 1;
+    zoom: 1.1;
+}
+
+.MiniTableDanger{
+    text-align: center;
+    color: #E85F5C;
+
+} */
+
+/* E85F5C
+
+F4E9CD
+
+7D84B2 */

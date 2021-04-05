@@ -4,6 +4,8 @@ import axios from 'axios';
 
 import Input from '../../../components/UI/Input/Input';
 import Table from '../../../components/UI/Table/Table';
+import RecurringTable from '../../../components/RecurringTable/RecurringTable';
+import TaskTable from '../../../components/TaskTable/TaskTable';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Chart from '../../../components/UI/Chart/Chart';
@@ -91,6 +93,12 @@ const Income = props => {
 
     const [totalIncome, setTotalIncome] = useState(0);
 
+    const [recurringIncome, setRecurringIncome] = useState([]);
+
+    const [invoiceIncome, setInvoiceIncome] = useState([]);
+
+    const [taskIncome, setTaskIncome] = useState([]);
+
 
     const addTotalAmount = (incomeData) => {
         let preTotal = 0;
@@ -108,15 +116,30 @@ const Income = props => {
         //Need to add the dynamic UserID here
         axios.post('/income', '10002')
         .then(response => {
-            const newData = [];
+            const newIncomeData = [];
+            const newRecurrData = [];
             const Data = response.data;
-            Data.forEach(item => {
-                const tempData = Object.values(item)
-                newData.push(tempData);
-            })
-            setIncomeData(newData)
-            addTotalAmount(newData)
+            console.log(Data)
+            console.log(Data[0].Income)
+            console.log(Data[1].Recurrence)
 
+            // Loop over each Income and push it to the state.
+            Data[0].Income.forEach(item => {
+                const tempData = Object.values(item);
+                newIncomeData.push(tempData);
+            })
+            setIncomeData(newIncomeData);
+            addTotalAmount(newIncomeData);
+
+
+            // Loop over each Recurrence and push it to the state            
+            Data[1].Recurrence.forEach(item => {
+                const tempData = Object.values(item);
+                newRecurrData.push(tempData);
+            })
+            setRecurringIncome(newRecurrData);
+
+            
             // Test time out to see the loading affect
             setTimeout(() => {
                 setLoading(false)
@@ -193,8 +216,61 @@ const Income = props => {
                     />
                 </div>
 
-                
-                <p>Recurring Tables </p>
+                <div className={classes.ColumnWrapper}>
+                    <div className={classes.RowWrapper}>
+                        <RecurringTable
+                            // heading={['Description', 'Amount', 'Currency', 'Category', 'Date']}
+                            content={recurringIncome}
+                            mainColor={'rgba(57.0, 179.0, 161.0, 1.0)'}
+                        />
+                    </div>
+
+                    <div className={classes.RowWrapper}>
+                        <TaskTable
+                            // heading={['Description', 'Amount', 'Currency', 'Category', 'Date']}
+                            content={recurringIncome}
+                            mainColor={'rgba(57.0, 179.0, 161.0, 1.0)'}
+                        />
+                    </div>
+
+                    {/* <div className={classes.SectionWrapper}>
+                        <h5>Recurring Income </h5>
+                        <div>
+                            <div>
+                                Columns
+                                <div>
+                                    #
+                                </div>
+                                <div>
+                                    Name
+                                </div>
+                                <div>
+                                    Description
+                                </div>
+                                <div>
+                                    Amount
+                                </div>
+                                <div>
+                                    Often
+                                </div>
+                                <div>
+                                    Status
+                                </div>
+                            </div>
+                            <div>
+                                Rows
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div className={classes.SectionWrapper}>
+                        <p>Invoice Incomes</p>
+                    </div>
+
+                    <div className={classes.SectionWrapper}>
+                        <p>Tasked Incomes</p>
+                    </div> */}
+                </div>
 
                 
             

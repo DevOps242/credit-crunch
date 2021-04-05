@@ -47,6 +47,13 @@ const NavigationItems = props => {
                 </div> : null}
 
                 {props.sideDrawerItems ? <div className={classes.IconWrapper}>     
+                    <NavigationItem link="/recurrence" exact>
+                        <FaHistory className={classes.Icon}/>
+                        Recurrence
+                    </NavigationItem>
+                </div> : null}
+
+                {props.sideDrawerItems ? <div className={classes.IconWrapper}>     
                     <NavigationItem link="/history" exact>
                         <FaHistory className={classes.Icon}/>
                         History
@@ -63,7 +70,7 @@ const NavigationItems = props => {
                 {props.sideDrawerItems ? <div className={classes.IconWrapper}>     
                     <NavigationItem link="/about-us" exact>
                         <FaExternalLinkAlt className={classes.Icon}/>
-                        About Us
+                        Help and Support
                     </NavigationItem>
                 </div> : null}
             </ul>

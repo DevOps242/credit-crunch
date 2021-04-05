@@ -27,7 +27,7 @@ const table = (props) => {
                     <tbody>
                         {props.content.map(item => {
                             return <tr className={classes.TableContentWrapper}>{item.map(itemContent => {
-                                return <td className={classes.TableContent}>{itemContent}</td>
+                                return <td key={itemContent.Id} className={classes.TableContent}>{itemContent}</td>
                             })}</tr>
                         })}
                     </tbody>

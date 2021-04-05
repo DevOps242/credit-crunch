@@ -1,0 +1,55 @@
+.TaskTableWrapper{
+    
+    
+}
+
+.TaskHeader{
+    margin-top: 10px;
+    padding-bottom: 3px;
+    text-align: center;
+    text-transform:uppercase;
+    font-size: 1.3rem;
+    border-bottom: 1px solid gray;
+    border-radius: 15px;
+}
+
+.TaskTableHeading{
+    text-align: center;
+    font-size: 14px;
+    margin-right: 5px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.TaskTableContent{
+    text-align: center;
+    font-size: 14px;
+    margin-right: 5px;
+    padding-right: 10px;
+    white-space: nowrap;
+    
+}
+
+.TaskTableEditButtonWrapper{
+    display: flex;
+}
+
+.TaskTableEditButtonEdit{
+    color: #7D84B2;
+    padding: 10px;
+}
+
+.TaskTableEditButtonEdit :hover{
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.TaskTableEditButtonDelete{
+    color: #E85F5C;
+    padding: 10px;
+}
+
+.TaskTableEditButtonDelete :hover{
+    cursor: pointer;
+    opacity: 0.8;
+}

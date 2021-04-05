@@ -10,6 +10,8 @@ from flask import Flask, flash, jsonify, redirect, request, session, url_for, ab
 import uuid
 # from flask_session import Session
 import json
+import pprint
+
 from random import randint
 from datetime import datetime
 
@@ -173,55 +175,127 @@ def get_Income():
 
     db = Database()
 
-    responseData = [
+
+    # <div>
+    #                                 #
+    #                             </div>
+    #                             <div>
+    #                                 Name
+    #                             </div>
+    #                             <div>
+    #                                 Description
+    #                             </div>
+    #                             <div>
+    #                                 Amount
+    #                             </div>
+    #                             <div>
+    #                                 Often
+    #                             </div>
+    #                             <div>
+    #                                 Status
+    #                             </div>
+    #                         </div>
+    #                         <div>
+    #                             Rows
+    #                         </div>
+
+
+    responseRecurrData = [
         {
-            'Description': 'Lorem Ipsum',
-            'Amount': '1500.00',
-            'Currency': 'USD',
+            'Id' : 1,
+            'Description': 'Add Insurance',
             'Category': 'Income',
-            'Date' : '01-Mar-21'
-        },
+            'Current_Amount': '150.50',
+            'Current_Goal': '3000.00',
+            'Status': 'Active',
+            'Recurrence': 'Daily',
+            'Start': '',
+            'End': ''
+        }, 
         {
-            'Description': 'Payment',
-            'Amount': '2.00',
-            'Currency': 'USD',
+            'Id' : 2,
+            'Description': 'Salary',
             'Category': 'Income',
-            'Date' : '03-Mar-21'
-        },
+            'Current_Amount': '560.50',
+            'Current_Goal': '3000.00',
+            'Status': 'Active',
+            'Recurrence': 'Monthly',
+            'Start': '',
+            'End': ''
+        }, 
         {
-            'Description': 'Sales',
-            'Amount': '80.00',
-            'Currency': 'USD',
+            'Id' : 55,
+            'Description': 'Salary',
             'Category': 'Income',
-            'Date' : '15-Mar-21'
-        },
-        {
-            'Description': 'Sales',
-            'Amount': '80.00',
-            'Currency': 'USD',
-            'Category': 'Income',
-            'Date' : '29-Mar-21'
-        },
-        {
-            'Description': 'Sales',
-            'Amount': '2500.00',
-            'Currency': 'USD',
-            'Category': 'Income',
-            'Date' : '29-Mar-21'
-        },
-        {
-            'Description': 'Sales',
-            'Amount': '150.60',
-            'Currency': 'USD',
-            'Category': 'Income',
-            'Date' : '29-Mar-21'
+            'Current_Amount': '10000.00',
+            'Current_Goal': '10000.00',
+            'Status': 'Completed',
+            'Recurrence': 'Monthly',
+            'Start': '',
+            'End': ''
         }
     ]
 
-    response = json.dumps(responseData, default=str)
+    responseData = [
+        { 'Income': 
+            [
+                {
+                    'Description': 'Lorem Ipsum',
+                    'Amount': '1750.39',
+                    'Currency': 'USD',
+                    'Category': 'Income',
+                    'Date' : '01-Mar-21'
+                },
+                {  
+                    'Description': 'Payment',
+                    'Amount': '2.00',
+                    'Currency': 'USD',
+                    'Category': 'Income',
+                    'Date' : '03-Mar-21'
+                },
+                { 
+                    'Description': 'Sales',
+                    'Amount': '80.00',
+                    'Currency': 'USD',
+                    'Category': 'Income',
+                    'Date' : '15-Mar-21'
+                },
+                {
+                    'Description': 'Sales',
+                    'Amount': '80.00',
+                    'Currency': 'USD',
+                    'Category': 'Income',
+                    'Date' : '29-Mar-21'
+                },
+                {
+                    'Description': 'Sales',
+                    'Amount': '2500.00',
+                    'Currency': 'USD',
+                    'Category': 'Income',
+                    'Date' : '29-Mar-21'
+                },
+                {
+                    'Description': 'Sales',
+                    'Amount': '150.60',
+                    'Currency': 'USD',
+                    'Category': 'Income',
+                    'Date' : '29-Mar-21'
+                }
+            ]
+        },
+        {
+            'Recurrence': responseRecurrData
+        }
+        
+    ]
+
+    # print(responseData)
+
+    incomeResponse = json.dumps(responseData, default=str)
+    pprint.pprint(incomeResponse)
     # ['Salary', '1500.00', 'USD', 'Income'],['Payment', '2.00','CAD','Income']
 
-    return response
+    return incomeResponse
 
 
 
