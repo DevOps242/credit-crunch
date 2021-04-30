@@ -54,6 +54,24 @@
     opacity: 0.8;
 }
 
+.RecurringWarningWrapper {
+    text-align:center;
+    vertical-align:bottom;
+}
+.RecurringWarning {
+    color: #E85F5C;
+    margin-bottom:60px;
+}
+
+.RecurringWarningButton {
+
+}
+
+.RecurringWarningButton:hover {
+    cursor: pointer;
+}
+
+
 /* 
 .MiniTable {
     font-size: 12px;

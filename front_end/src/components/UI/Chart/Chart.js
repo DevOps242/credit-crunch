@@ -13,6 +13,8 @@ const chart = props => {
         })
         return preData;
     }
+
+    
     const dataValue = getData(1);
     const dataDates = getData(4);
     
@@ -71,4 +73,4 @@ const chart = props => {
 }
 
 
-export default chart;
+export default React.memo(chart);

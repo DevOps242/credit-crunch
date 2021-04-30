@@ -24,7 +24,43 @@ const taskTable = (props) => {
                 <div>
                     <h5 className={classes.TaskHeader}>Tasked Income</h5>
                 </div>
-                <div>
+                <div className={classes.TaskColumns}>
+                    <div>
+                        <p>Backlog</p>
+
+
+                        <div>
+                            <p>Footer of completed</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Pending</p>
+
+
+                        <div>
+                            <p>Footer of Pending</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Review</p>
+
+
+                        <div>
+                            <p>Footer of Review</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p>Completed</p>
+
+
+
+                        <div className={classes.TaskColumnsFooter}>
+                            <p>Footer of completed</p>
+                        </div>
+                    </div>
                     {/* <table>
                         <thead>
                             <tr>
@@ -67,4 +103,4 @@ const taskTable = (props) => {
     )
 }
 
-export default taskTable;
+export default React.memo(taskTable);

@@ -13,6 +13,41 @@
     border-radius: 15px;
 }
 
+.TaskColumns{
+    position:relative;
+    display: flex;
+    flex-wrap: nowrap;
+    margin-top: -35px;
+    text-align: center;
+    
+}
+
+.TaskColumns > div {
+    
+    position: relative;
+    margin: 0 10px;
+    width: 100%;
+    font-size: 15px;
+    line-height: 75px;
+    
+    /* border-right: 3px solid gray; */
+
+    height: 200px;
+    background-color: green; 
+    
+}
+
+.TaskColumnsFooter{
+    position: absolute;
+    bottom:0;
+    background-color:pink;
+    vertical-align:bottom;
+    
+    
+}
+
+
+/* 
 .TaskTableHeading{
     text-align: center;
     font-size: 14px;
@@ -52,4 +87,4 @@
 .TaskTableEditButtonDelete :hover{
     cursor: pointer;
     opacity: 0.8;
-}
+} */

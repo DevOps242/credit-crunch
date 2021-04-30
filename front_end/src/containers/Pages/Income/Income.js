@@ -1,6 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useCallback} from 'react';
 import {FaPlus} from 'react-icons/fa';
 import axios from 'axios';
+
+import { updateObject, checkValidity } from '../../../shared/utility';
 
 import Input from '../../../components/UI/Input/Input';
 import Table from '../../../components/UI/Table/Table';
@@ -9,6 +11,8 @@ import TaskTable from '../../../components/TaskTable/TaskTable';
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Button from '../../../components/UI/Button/Button';
 import Chart from '../../../components/UI/Chart/Chart';
+import Modal from '../../../components/UI/Modal/Modal';
+import Form from '../../../components/Form/Form';
 
 import classes from './Income.module.css';
 
@@ -33,7 +37,8 @@ const Income = props => {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Category'
+                placeholder: 'Category',
+                disabled: true
             },
             value: 'Income',
             validation: {
@@ -47,7 +52,8 @@ const Income = props => {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Currency'
+                placeholder: 'Currency',
+                disabled: true
             },
             value: 'USD',
             validation: {
@@ -60,7 +66,7 @@ const Income = props => {
         amount: {
             elementType: 'input',
             elementConfig: {
-                type: 'text',
+                type: 'number',
                 placeholder: 'Enter Amount'
             },
             value: '',
@@ -71,20 +77,20 @@ const Income = props => {
             valid: false,
             touched:false
         },
-        password: {
-            elementType: 'input',
-            elementConfig: {
-                type: 'password',
-                placeholder: 'Password'
-            },
-            value: '',
-            validation: {
-                required: true,
-                minLength: 6
-            },
-            valid: false,
-            touched:false
-        }   
+        // password: {
+        //     elementType: 'input',
+        //     elementConfig: {
+        //         type: 'password',
+        //         placeholder: 'Password'
+        //     },
+        //     value: '',
+        //     validation: {
+        //         required: true,
+        //         minLength: 6
+        //     },
+        //     valid: false,
+        //     touched:false
+        // }   
     });
 
     const [loading, setLoading] = useState(false);
@@ -95,21 +101,11 @@ const Income = props => {
 
     const [recurringIncome, setRecurringIncome] = useState([]);
 
-    const [invoiceIncome, setInvoiceIncome] = useState([]);
+    const [modalDisplay, setModalDisplay] = useState(false);
 
-    const [taskIncome, setTaskIncome] = useState([]);
+    // const [taskIncome, setTaskIncome] = useState([]);
 
-
-    const addTotalAmount = (incomeData) => {
-        let preTotal = 0;
-
-        incomeData.forEach(item => {
-            return preTotal += parseFloat(item[1])
-            }
-        )
-        setTotalIncome(preTotal.toFixed(2));
-    }
-
+    // This code calls is an API design to build the income inforamtion from the backend server.
     useEffect(() => {
         setLoading(true)
 
@@ -119,9 +115,9 @@ const Income = props => {
             const newIncomeData = [];
             const newRecurrData = [];
             const Data = response.data;
-            console.log(Data)
-            console.log(Data[0].Income)
-            console.log(Data[1].Recurrence)
+            // console.log(Data)
+            // console.log(Data[0].Income)
+            // console.log(Data[1].Recurrence)
 
             // Loop over each Income and push it to the state.
             Data[0].Income.forEach(item => {
@@ -144,13 +140,23 @@ const Income = props => {
             setTimeout(() => {
                 setLoading(false)
             }, 1000)
-
+            
         })
         .catch (error => {
             alert('Something went wrong please, Contact support')
         })
     }, [setIncomeData,setLoading])
     
+    const addTotalAmount = (incomeData) => {
+        let preTotal = 0;
+
+        incomeData.forEach(item => {
+            return preTotal += parseFloat(item[1])
+            }
+        )
+        setTotalIncome(preTotal.toFixed(2));
+    }
+
     const formElementsArray = [];
 
     for (let key in incomeForm) {
@@ -160,23 +166,47 @@ const Income = props => {
         })
     }
 
+    const inputChangedHandler= (event, controlName) => {
+        const updatedControls = updateObject(incomeForm, {
+            [controlName]: updateObject(incomeForm[controlName], {
+                value: event.target.value,
+                valid: checkValidity(event.target.value, incomeForm[controlName].validation),
+                touched: true
+            })
+        });
+        setIncomeForm(updatedControls);        
+    };
+
+    let inputFormContent = formElementsArray.map(formElement => (
+        <div className={classes.FormContainer}>
+            <label className={classes.FormLabel}>{formElement.id}:</label>
+            <Input 
+                key = {formElement.id}
+                elementType={formElement.config.elementType}
+                elementConfig={formElement.config.elementConfig}
+                value={formElement.config.value}
+                invalid={!formElement.config.valid}
+                shouldValidate={formElement.config.validation}
+                touched={formElement.config.touched}
+                changed={(event) => inputChangedHandler(event, formElement.id)}
+            />   
+        </div>
+    ));
+
     let spinner = null
     if (loading) {
         spinner = <Spinner/>
     }
 
-    let inputFormContent = formElementsArray.map(formElement => (
-        <Input 
-            key = {formElement.id}
-            elementType={formElement.config.elementType}
-            elementConfig={formElement.config.elementConfig}
-            value={formElement.config.value}
-            invalid={!formElement.config.valid}
-            shouldValidate={formElement.config.validation}
-            touched={formElement.config.touched}
-            // changed={(event) => inputChangedHandler(event, formElement.id)}
-        />   
-    ));
+    const AddIncomeFormHandler = useCallback((event) => {
+        event.preventDefault();
+        setModalDisplay(true);
+    }, [setModalDisplay]);
+
+    const closeModalHandler = useCallback((event) => {
+        event.preventDefault();
+        setModalDisplay(false);
+    }, [setModalDisplay])
 
     let displayPage = (
             <div>
@@ -202,8 +232,10 @@ const Income = props => {
 
                     <div className={classes.HeadingButton}>
                         <Button 
-                            btnType='Success'
-                            > <FaPlus/> Add more
+                            clicked={AddIncomeFormHandler}
+                            btnType='Success'>
+                                <FaPlus/>
+                                 Add Income
                         </Button>
                     </div>
                 </div>
@@ -221,16 +253,24 @@ const Income = props => {
                         <RecurringTable
                             // heading={['Description', 'Amount', 'Currency', 'Category', 'Date']}
                             content={recurringIncome}
+                            // content={[]}
                             mainColor={'rgba(57.0, 179.0, 161.0, 1.0)'}
                         />
                     </div>
 
                     <div className={classes.RowWrapper}>
-                        <TaskTable
+                        <div className={classes.ComingSoon}>
+                            <p>Tasked Income coming soon</p>
+                        </div>
+                        <div className={classes.ComingSoon2}>
+                            <p>Credit Crunch</p>
+                        </div>
+                        
+                        {/* <TaskTable
                             // heading={['Description', 'Amount', 'Currency', 'Category', 'Date']}
                             content={recurringIncome}
                             mainColor={'rgba(57.0, 179.0, 161.0, 1.0)'}
-                        />
+                        /> */}
                     </div>
 
                     {/* <div className={classes.SectionWrapper}>
@@ -270,13 +310,31 @@ const Income = props => {
                     <div className={classes.SectionWrapper}>
                         <p>Tasked Incomes</p>
                     </div> */}
-                </div>
 
-                
-            
+
+                </div>
             </div>
     );
 
+    // The code below will handle displaying the modal or closing it.
+    let displayModal = null;
+    if (modalDisplay) {
+        displayModal = (
+            <div>
+                <Modal 
+                    show = {modalDisplay} 
+                    modalClosed = {(event) => closeModalHandler(event)}
+                    >
+                    <Form 
+                        closed={(event) => closeModalHandler()}
+                        formType = {'incomeAddition'}
+                        formConent = {inputFormContent}/>    
+                </Modal>      
+            </div>
+        )
+    }
+
+    //This code below will render the spinner if the loading state is true
     if (loading) {
         displayPage = (
             <div className={classes.SpinnerWrapper}>
@@ -289,7 +347,8 @@ const Income = props => {
         <React.Fragment>
             <div className={classes.IncomeWrapper}>
                 {displayPage}
- 
+                {displayModal}
+                
             </div>
         </React.Fragment>
     )
