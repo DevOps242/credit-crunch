@@ -175,31 +175,6 @@ def get_Income():
 
     db = Database()
 
-
-    # <div>
-    #                                 #
-    #                             </div>
-    #                             <div>
-    #                                 Name
-    #                             </div>
-    #                             <div>
-    #                                 Description
-    #                             </div>
-    #                             <div>
-    #                                 Amount
-    #                             </div>
-    #                             <div>
-    #                                 Often
-    #                             </div>
-    #                             <div>
-    #                                 Status
-    #                             </div>
-    #                         </div>
-    #                         <div>
-    #                             Rows
-    #                         </div>
-
-
     responseRecurrData = [
         {
             'Id' : 1,
@@ -296,6 +271,23 @@ def get_Income():
     # ['Salary', '1500.00', 'USD', 'Income'],['Payment', '2.00','CAD','Income']
 
     return incomeResponse
+
+@app.route('/transactionAdded', methods=['POST'])
+def add_Transaction():
+    if request.method == 'POST':
+        payload = request.get_json(force = True)
+        description = payload['description']
+        currency = payload['currency']
+        amount = payload['amount']
+        category = payload['category']
+        userId = payload['userId']
+
+        print(payload)
+        print(description)
+        
+
+    db = Database()
+    return 'hello'
 
 
 

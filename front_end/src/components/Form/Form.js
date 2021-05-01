@@ -128,7 +128,7 @@ const Form = props => {
         formDisplay = (
             <div>
                 <h2>{props.formType} Form</h2>
-                <form className={classes.FormLayout} onSubmit={() => console.log('Form Submitted')}>
+                <form className={classes.FormLayout} onSubmit={props.submit}>
                     {props.formConent}
                     <Button btnType='Success'> Add Transaction</Button>
                     <Button btnType='Danger' onClick={props.closed}>Cancel</Button>

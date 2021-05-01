@@ -23,7 +23,8 @@ const Income = props => {
             elementType: 'input',
             elementConfig: {
                 type: 'text',
-                placeholder: 'Enter Description'
+                placeholder: 'Enter Description',
+                required: true
             },
             value: '',
             validation: {
@@ -67,11 +68,12 @@ const Income = props => {
             elementType: 'input',
             elementConfig: {
                 type: 'number',
-                placeholder: 'Enter Amount'
+                placeholder: 'Enter Amount',
+                required: true
             },
             value: '',
             validation: {
-                required: false,
+                required: true,
                 // isEmail: true
             },
             valid: false,
@@ -110,7 +112,7 @@ const Income = props => {
         setLoading(true)
 
         //Need to add the dynamic UserID here
-        axios.post('/income', '10002')
+        axios.post('/income', localStorage.getItem('userId'))
         .then(response => {
             const newIncomeData = [];
             const newRecurrData = [];
@@ -207,6 +209,22 @@ const Income = props => {
         event.preventDefault();
         setModalDisplay(false);
     }, [setModalDisplay])
+
+    const addIncomeSubmitHandler = (event) => {
+        axios.post('/transactionAdded', {
+            'userId': localStorage.getItem('userId'),
+            'description': incomeForm.description.value,
+            'category': incomeForm.category.value,
+            'currency': incomeForm.currency.value,
+            'amount': incomeForm.amount.value
+        })
+        
+        .then(response => {
+            console.log(response);
+            // RESET THE FORM INFORMATION
+            
+        })
+    }
 
     let displayPage = (
             <div>
@@ -326,7 +344,8 @@ const Income = props => {
                     modalClosed = {(event) => closeModalHandler(event)}
                     >
                     <Form 
-                        closed={(event) => closeModalHandler()}
+                        submit = {(event) => addIncomeSubmitHandler(event)}
+                        closed={(event) => closeModalHandler(event)}
                         formType = {'incomeAddition'}
                         formConent = {inputFormContent}/>    
                 </Modal>      
