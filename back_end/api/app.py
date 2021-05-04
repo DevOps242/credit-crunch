@@ -274,6 +274,7 @@ def get_Income():
 
 @app.route('/transactionAdded', methods=['POST'])
 def add_Transaction():
+    # Information is pull from the gathered from the front end
     if request.method == 'POST':
         payload = request.get_json(force = True)
         description = payload['description']
@@ -285,8 +286,20 @@ def add_Transaction():
         print(payload)
         print(description)
         
-
+    # Initalizing the Database
     db = Database()
+
+    # Build the SQL query for inserting the data in the database
+    query = """ INSERT INTO {category} (user_GUID, {category_lowered}_name, {category_lowered}_amount, {category_lowered}_currency, {category_lowered}_status) VALUES (%s, %s, %s, %s, 'A') """.format(category = category, category_lowered = category.lower())
+    
+    #Storing the data in a list
+    data = (userId, description, amount, currency)
+   
+    # Calling the method that inputs elements into database and return the results to the user.This takes two arguments the query and the data itself.
+    results = db.inputToDatabase(query, data)
+
+    print(results)
+
     return 'hello'
 
 

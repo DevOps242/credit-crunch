@@ -91,8 +91,9 @@ class Database():
             message = 'DATA UPDATED SUCCESSFULLY'
             cnx.commit()    
 
-        except:
+        except Error as error:
             message = 'ERROR PUTTING DATA INTO DATABASE'
+            print(error)
 
         finally:
             cur.close()

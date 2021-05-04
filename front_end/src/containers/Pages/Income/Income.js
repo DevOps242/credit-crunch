@@ -69,9 +69,10 @@ const Income = props => {
             elementConfig: {
                 type: 'number',
                 placeholder: 'Enter Amount',
-                required: true
+                required: true,
+                step: '0.01'
             },
-            value: '',
+            value: '0.00',
             validation: {
                 required: true,
                 // isEmail: true
@@ -200,14 +201,19 @@ const Income = props => {
         spinner = <Spinner/>
     }
 
+    
     const AddIncomeFormHandler = useCallback((event) => {
         event.preventDefault();
         setModalDisplay(true);
+
+        // setIncomeForm(incomeForm.description.value = '');
+        // setIncomeForm(incomeForm['amount'].value = '');
     }, [setModalDisplay]);
 
     const closeModalHandler = useCallback((event) => {
         event.preventDefault();
         setModalDisplay(false);
+
     }, [setModalDisplay])
 
     const addIncomeSubmitHandler = (event) => {
@@ -345,7 +351,7 @@ const Income = props => {
                     >
                     <Form 
                         submit = {(event) => addIncomeSubmitHandler(event)}
-                        closed={(event) => closeModalHandler(event)}
+                        closed={closeModalHandler}
                         formType = {'incomeAddition'}
                         formConent = {inputFormContent}/>    
                 </Modal>      
