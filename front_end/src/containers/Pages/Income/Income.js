@@ -113,7 +113,7 @@ const Income = props => {
         setLoading(true)
 
         //Need to add the dynamic UserID here
-        axios.post('/income', localStorage.getItem('userId'))
+        axios.post('/income',  { user_Id: localStorage.getItem('userId') })
         .then(response => {
             const newIncomeData = [];
             const newRecurrData = [];
@@ -147,6 +147,7 @@ const Income = props => {
         })
         .catch (error => {
             alert('Something went wrong please, Contact support')
+            console.log(error)
         })
     }, [setIncomeData,setLoading])
     
@@ -217,6 +218,7 @@ const Income = props => {
     }, [setModalDisplay])
 
     const addIncomeSubmitHandler = (event) => {
+        
         axios.post('/transactionAdded', {
             'userId': localStorage.getItem('userId'),
             'description': incomeForm.description.value,
@@ -228,7 +230,16 @@ const Income = props => {
         .then(response => {
             console.log(response);
             // RESET THE FORM INFORMATION
+            setTimeout(() => {
+                alert(response.data.success)
+            }, 5000)
             
+        })
+        .catch(response => {
+            console.log(response)
+            setTimeout(() => {
+                alert(response.data.error)
+            },5000)
         })
     }
 

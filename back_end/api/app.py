@@ -72,7 +72,7 @@ def user_Signup():
                 'token': user_token,
                 'message': db_response,
                 'result': 'User added Successfully',
-                'localId': user_Id,
+                'localId': user_GUID,
                 'expiresIn': 900
             }
 
@@ -105,11 +105,12 @@ def user_Login():
                     #UUID 5 takes 2 arguments namespace dns and the string u want to hash
                     user_token = str(uuid.uuid5(uuid.NAMESPACE_DNS, email))
 
+            hashed_userID = user_Info[0]
             # Client Response Information
             responseData = {
                 'token': user_token,
                 'result': 'User Logged in Successfully',
-                'localId': user_Info[0],
+                'localId': user_Info[5],
                 'expiresIn': 900
             }
             response = json.dumps(responseData, default=str)
@@ -152,6 +153,21 @@ def get_UserId(email):
 
     return userId
 
+
+# This function obtains the user'sID as an argument and returns the userGUID
+def get_UserGUID(id):
+    db = Database()
+
+    # Check If User Already Exsist
+    validate_userQuery = ('SELECT * FROM Users WHERE user_id = "{}"').format(id)
+   
+    validate_user = db.selectOneFromDatabase(validate_userQuery)
+    
+    #Test to see if user exsist 
+    userGUID = validate_user[0][5]
+
+    return userGUID
+
 # This function returns the users information
 def get_UserInfo(email):
     db = Database()
@@ -171,9 +187,17 @@ def get_UserInfo(email):
 def get_Income():
     if request.method == 'POST':
         payload = request.get_json(force = True)
-        user_Id = payload
-
+        user_GUID = payload['user_Id']
+    
+    
+    print(user_GUID)
     db = Database()
+
+    query = """ SELECT * FROM Income WHERE user_GUID = 'f0a5fe90-3557-4c08-a5b8-8cb495d1bf46' """
+    print(query)
+    results = db.selectAllFromDatabase(query)
+
+    print(results)
 
     responseRecurrData = [
         {
@@ -267,7 +291,7 @@ def get_Income():
     # print(responseData)
 
     incomeResponse = json.dumps(responseData, default=str)
-    pprint.pprint(incomeResponse)
+    
     # ['Salary', '1500.00', 'USD', 'Income'],['Payment', '2.00','CAD','Income']
 
     return incomeResponse
@@ -282,25 +306,35 @@ def add_Transaction():
         amount = payload['amount']
         category = payload['category']
         userId = payload['userId']
+        category_GUID = str(uuid.uuid4())   
 
-        print(payload)
-        print(description)
+    # This function gets the userGUID from Database by provided the userID as its argument
+    user_GUID = get_UserGUID(userId) 
+
+    try:    
+        # Initalizing the Database
+        db = Database()
+
+        # Build the SQL query for inserting the data in the database
+        query = """ INSERT INTO {category} (user_GUID, {category_lowered}_name, {category_lowered}_amount, {category_lowered}_currency, {category_lowered}_status, {category_lowered}_GUID) VALUES (%s, %s, %s, %s, 'A', %s) """.format(category = category, category_lowered = category.lower())
         
-    # Initalizing the Database
-    db = Database()
-
-    # Build the SQL query for inserting the data in the database
-    query = """ INSERT INTO {category} (user_GUID, {category_lowered}_name, {category_lowered}_amount, {category_lowered}_currency, {category_lowered}_status) VALUES (%s, %s, %s, %s, 'A') """.format(category = category, category_lowered = category.lower())
+        #Storing the data in a list
+        data = (user_GUID, description, amount, currency, category_GUID)
     
-    #Storing the data in a list
-    data = (userId, description, amount, currency)
-   
-    # Calling the method that inputs elements into database and return the results to the user.This takes two arguments the query and the data itself.
-    results = db.inputToDatabase(query, data)
+        # Calling the method that inputs elements into database and return the results to the user.This takes two arguments the query and the data itself.
+        results = db.inputToDatabase(query, data)
+        if (results == 'DATA UPDATED SUCCESSFULLY'):
+            results = {
+                'message' : 'DATA UPDATED SUCCESSFULLY',
+                'success' : 'Transaction completed successfully'
+            }
+    except:
+        results = {
+            'message': "There is an issue making this transaction. Please contact support.",
+            'error': "Unable to process transaction"
+        }
 
-    print(results)
-
-    return 'hello'
+    return results
 
 
 

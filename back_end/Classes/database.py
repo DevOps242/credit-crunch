@@ -42,14 +42,18 @@ class Database():
     def selectAllFromDatabase(self, query): 
         cnx = self.db_connection()
         cur = cnx.cursor()
-        response = None
+        response = {}
         try:
             cur.execute(query)
             output = cur.fetchall()
-            print(' OUTPUT SELECT ALL {}'.format(output))
+            # print(' OUTPUT SELECT ALL {}'.format(output))
+            # print("this is the output: {}".format(output))
             for row in output:
-                response.push(row)
+                response.copy(row)
+                # # print(row)
+                # response.update(row)
             message = 'DATA RETRIEVED SUCCESSFULLY'
+            print(response)
 
         except Error as error:
             message = 'ERROR GETTING DATA FROM DATABASE'
